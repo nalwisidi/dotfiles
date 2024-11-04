@@ -5,15 +5,11 @@ HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh_history"
 setopt inc_append_history
 
 source $ZDOTDIR/themes.zsh
-source $ZDOTDIR/plugins.zsh
 source $ZDOTDIR/aliases.zsh
 
 # BUN Configs
 export BUN_INSTALL="$XDG_LOCAL_HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
-
-# Load auto completions
-source $ZDOTDIR/tab.zsh
 
 # iTerm2 & ZSH integration
 if [[ "$(uname)" == "Darwin" ]]; then
@@ -22,3 +18,41 @@ fi
 
 # Integrate FZF
 eval "$(fzf --zsh)"
+
+# vi mode
+bindkey -v
+export KEYTIMEOUT=1
+
+# Use vim keys in tab complete menu:
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -v '^?' backward-delete-char
+
+# Edit line in VI with ctrl-e:
+autoload edit-command-line; zle -N edit-command-line
+bindkey -M viins '^e' edit-command-line
+bindkey -M vicmd '^e' edit-command-line
+
+# Auto navigate with CLI File Manager (lf)
+lfcd () {
+  tmp="$(mktemp -uq)"
+  trap 'rm -f $tmp >/dev/null 2>&1'
+  lf -last-dir-path="$tmp" "$@"
+  if [ -f "$tmp" ]; then
+    dir="$(cat "$tmp")"
+    [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+  fi
+}
+alias lf='lfcd'
+bindkey -s '^o' '^ulfcd\n'
+
+# Ctrl+z -> reload zsh
+bindkey -s '^z' 'source ~/.config/zsh/.zshrc\n'
+
+# Load auto completions
+source $ZDOTDIR/tab.zsh
+
+# Load plugins
+source $ZDOTDIR/plugins.zsh

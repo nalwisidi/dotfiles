@@ -51,18 +51,6 @@ if [[ "$(uname)" == "Darwin" ]]; then
   }
 fi
 
-# Auto navigate with CLI File Manager (lf)
-lfcd () {
-  tmp="$(mktemp -uq)"
-  trap 'rm -f $tmp >/dev/null 2>&1'
-  lf -last-dir-path="$tmp" "$@"
-  if [ -f "$tmp" ]; then
-    dir="$(cat "$tmp")"
-    [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
-  fi
-}
-alias lf='lfcd'
-
 # -- Kubernetes -- #
 # Change namespace -> ns <desired_namespace>
 ns () {
@@ -73,9 +61,3 @@ alias nodes='kubectl get nodes | grep -Eo "([0-9]{1,3}\.){3}[0-9]{1,3}"'
 
 # Stow
 alias restow="stow -R --no-folding -d $DOTFILES_PATH -t $HOME ."
-
-# -- Key Mapping -- #
-# Ctrl+o -> open (lf)
-bindkey -s '^o' '^ulfcd\n'
-# Ctrl+z -> reload zsh
-bindkey -s '^z' 'source ~/.config/zsh/.zshrc\n'
