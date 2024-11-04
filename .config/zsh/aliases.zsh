@@ -62,7 +62,6 @@ lfcd () {
   fi
 }
 alias lf='lfcd'
-bindkey -s '^o' '^ulfcd\n'
 
 # -- Kubernetes -- #
 # Change namespace -> ns <desired_namespace>
@@ -71,3 +70,12 @@ ns () {
 }
 # Get working nodes IPs
 alias nodes='kubectl get nodes | grep -Eo "([0-9]{1,3}\.){3}[0-9]{1,3}"'
+
+# Stow
+alias restow="stow -R --no-folding -d $DOTFILES_PATH -t $HOME ."
+
+# -- Key Mapping -- #
+# Ctrl+o -> open (lf)
+bindkey -s '^o' '^ulfcd\n'
+# Ctrl+z -> reload zsh
+bindkey -s '^z' 'source ~/.config/zsh/.zshrc\n'

@@ -1,7 +1,7 @@
 # History in cache directory:
 HISTSIZE=10000000
 SAVEHIST=10000000
-HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/history"
+HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh_history"
 setopt inc_append_history
 
 source $ZDOTDIR/themes.zsh
@@ -22,4 +22,3 @@ fi
 
 # Integrate FZF
 eval "$(fzf --zsh)"
-
