@@ -29,7 +29,7 @@ initial_setup() {
 stowing() {
   [ -d "$DOTFILES_PATH/.git" ] || git clone https://github.com/alwisidi/dotfiles.git $DOTFILES_PATH
   while true; do
-    OUTPUT=$(stow -R -d $DOTFILES_PATH -t $HOME . 2>&1)
+    OUTPUT=$(stow -R --no-folding -d $DOTFILES_PATH -t $HOME . 2>&1)
     STATUS=$?
     if [ $STATUS -eq 0 ]; then
       printf "${GREEN}Stow completed successfully.${NC}\n"

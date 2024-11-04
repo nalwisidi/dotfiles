@@ -39,7 +39,7 @@ install_apps() {
 }
 
 # Essential CLI Apps
-essential_cli_apps=("git" "stow" "telnet" "netcat" "archey4" "powerlevel10k" "zsh-completions" "zsh" "fzf" "bat" "lf" "tree" "jq" "yq" "wget" "neovim" "p7zip" "python" "node" "openjdk")
+essential_cli_apps=("git" "stow" "telnet" "netcat" "archey4" "powerlevel10k" "zsh-completions" "zsh" "coreutils" "fzf" "bat" "lf" "tree" "jq" "yq" "wget" "neovim" "p7zip" "python" "node" "openjdk")
 printf "${CYAN}Installing Essential CLI applications ...${NC}\n"
 install_apps "cli" "${essential_cli_apps[@]}"
 

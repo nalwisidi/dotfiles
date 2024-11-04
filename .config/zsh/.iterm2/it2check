@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+if [ ! -t 0 ] ; then
+  exit 1
+fi
+if [ ! -t 1 ] ; then
+  exit 1
+fi
+function read_bytes()
+{
+  numbytes=$1
+  dd bs=1 count=$numbytes 2>/dev/null
+}
+function read_dsr() {
+  dsr=""
+  spam=$(read_bytes 2)
+  byte=$(read_bytes 1)
+  while [ "${byte}" != "n" ]; do
+    dsr=${dsr}${byte}
+    byte=$(read_bytes 1)
+  done
+  echo ${dsr}
+}
+function terminal {
+  echo -n "$1" | sed -e 's/ .*//'
+}
+function version {
+  echo -n "$1" | sed -e 's/.* //'
+}
+trap clean_up EXIT
+_STTY=$(stty -g)
+function clean_up() {
+  stty "$_STTY"
+}
+stty -echo -icanon raw min 0 time 0
+while read none; do :; done
+clean_up
+stty -echo -icanon raw
+MIN_VERSION=2.9.20160304
+if [ $# -eq 1 ]; then
+  MIN_VERSION=$1
+fi
+echo -n '[1337n'
+echo -n '[5n'
+version_string=$(read_dsr)
+if [ -n "${version_string}" -a "${version_string}" != "0" -a "${version_string}" != "3" ]; then
+  dsr=$(read_dsr)
+else
+  version_string=""
+fi
+version=$(version "${version_string}")
+term=$(terminal "${version_string}")
+test "$term" = ITERM2 -a \( "$version" \> "$MIN_VERSION" -o "$version" = "$MIN_VERSION" \)

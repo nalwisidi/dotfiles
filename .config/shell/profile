@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# Remove prompt space; suppress errors
+unsetopt PROMPT_SP 2>/dev/null
+
+# Default programs:
+export EDITOR="nvim"
+
+# Cleanup $HOME
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_LOCAL_HOME="$HOME/.local"
+export XDG_CACHE_HOME="$HOME/.cache"
+export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+export ANSIBLE_CONFIG="$XDG_CONFIG_HOME/ansible/ansible.cfg"
+export HISTFILE="$XDG_DATA_HOME/history"
+
+# Add all directories in `$HOME/.local/bin` to $PATH
+export PATH="$PATH:$(find $XDG_LOCAL_HOME/bin -type d | paste -sd ':' -)"
+
+# Export macOS Homebrew
+if [[ "$(uname)" == "Darwin" ]]; then
+  HOMEBREW="/opt/homebrew/bin:/opt/homebrew/sbin"
+  export PATH="$PATH:$HOMEBREW"
+fi
