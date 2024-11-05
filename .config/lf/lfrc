@@ -1,0 +1,96 @@
+set shellopts '-eu'
+set ifs "\n"
+set scrolloff 10
+set period 1
+set autoquit true
+
+cmd open ${{
+  case $(file --mime-type "$(readlink -f $f)" -b) in
+    text/*|application/json|inode/x-empty|application/x-subrip) $EDITOR $fx;;
+    *) open "$f";;
+  esac
+}}
+
+cmd mkdir $mkdir -p "$@"
+
+cmd archive ${{
+  FILES="$(echo "$fx" | awk -F'/' '{print $NF}' | tr '\n' ',' | sed 's/,$//')"
+  FILES_ARRAY=()
+  while IFS= read -r FILE; do
+        FILES_ARRAY+=("$(echo $FILE | awk -F'/' '{print $NF}')")
+    done <<< "$fx"
+  clear; read -p "Are you sure you want to archive $FILES? (y/N): " -n 1 -r confirmation
+  if [[ "$confirmation" =~ ^[yY]$ ]]; then
+    tar --use-compress-program=zstd -cvf "${FILES%%,*}.tar.zst" "${FILES_ARRAY[@]}"
+    lf -remote "send echo 'Archived: $FILES'"
+  else
+    lf -remote "send echo 'Operation canceled.'"
+  fi
+}}
+
+cmd extract ${{
+  FILES="$(echo "$fx" | awk -F'/' '{print $NF}' | tr '\n' ',' | sed 's/,$//')"
+	clear; read -p "Are you sure you want to extract $FILES? (y/N): " -n 1 -r confirmation
+  if [[ "$confirmation" =~ ^[yY]$ ]]; then
+		case $fx in
+			*.tar.zst) zstd -dc $fx | tar -xvf - ;;
+			*.tar.bz2) tar xjf $fx               ;;
+			*.tar.gz)  tar xzf $fx               ;;
+			*.bz2)     bunzip2 $fx               ;;
+			*.rar)     unrar e $fx               ;;
+			*.gz)      gunzip $fx                ;;
+			*.tar)     tar xf $fx                ;;
+			*.tbz2)    tar xjf $fx               ;;
+			*.tgz)     tar xzf $fx               ;;
+			*.zip)     unzip $fx                 ;;
+			*.Z)       uncompress $fx            ;;
+			*.7z)      7z x $fx                  ;;
+			*.tar.xz)  tar xf $fx                ;;
+		esac
+    lf -remote "send echo 'Extracted: $FILES'"
+  else
+    lf -remote "send echo 'Operation canceled.'"
+  fi
+}}
+
+cmd remove ${{
+  FILES="$(echo "$fx" | awk -F'/' '{print $NF}' | tr '\n' ',' | sed 's/,$//')"
+  clear; read -p "Are you sure you want to delete $FILES? (y/N): " -n 1 -r confirmation
+  if [[ "$confirmation" =~ ^[yY]$ ]]; then
+    rm -rf -- $fx
+    lf -remote "send echo 'Deleted: $FILES'"
+  else
+    lf -remote "send echo 'Operation canceled.'"
+  fi
+}}
+
+cmd bulkrename ${{
+  tmpfile_old="$(mktemp)"
+  tmpfile_new="$(mktemp)"
+  [ -n "$fs" ] && fs=$(basename -a $fs) || fs=$(ls)
+  echo "$fs" > "$tmpfile_old"
+  echo "$fs" > "$tmpfile_new"
+  $EDITOR "$tmpfile_new"
+  [ "$(wc -l < "$tmpfile_old")" -eq "$(wc -l < "$tmpfile_new")" ] || { rm -f "$tmpfile_old" "$tmpfile_new"; exit 1; }
+  paste "$tmpfile_old" "$tmpfile_new" | while IFS="$(printf '\t')" read -r src dst
+  do
+    [ "$src" = "$dst" ] || [ -e "$dst" ] || mv -- "$src" "$dst"
+  done
+  rm -f "$tmpfile_old" "$tmpfile_new"
+  lf -remote "send $id unselect"
+}}
+
+# Bindings
+map <c-r> $lf -remote "send $id select \"$(fzf)\""
+map H cd ~
+map g top
+map D remove
+map E extract
+map A archive
+map R bulkrename
+map <c-l> reload
+map <c-n> push :mkdir<space>""<left>
+map <c-s> set hidden!
+map <enter> shell
+map o open "$f"
+map a :rename; cmd-end
