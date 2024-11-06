@@ -7,7 +7,7 @@ unsetopt PROMPT_SP 2>/dev/null
 export EDITOR="nvim"
 
 # Ensure default paths exist
-mkdir -p -m 755 $HOME/{.config/{ansible,docker,m2,zsh},.local/{bin,share},.cache/zsh_sessions}
+mkdir -p -m 755 $HOME/{.config/{ansible,docker,m2,npm/{global,cache},zsh},.local/{bin,share},.cache/{lemminx,zsh_sessions}}
 mkdir -p -m 700 $HOME/.config/kube
 
 # Cleanup $HOME
@@ -19,12 +19,15 @@ export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
 export KUBECONFIG="$XDG_CONFIG_HOME/kube"
 export MAVEN_USER_HOME="$XDG_CONFIG_HOME/m2"
+export NPM_CONFIG_PREFIX="$XDG_CONFIG_HOME/npm/global"
+export NPM_CONFIG_CACHE="$XDG_CONFIG_HOME/npm/cache"
 export ZSH_SESSION_DIR="$XDG_CACHE_HOME/zsh_sessions"
 export ANSIBLE_CONFIG="$XDG_CONFIG_HOME/ansible/ansible.cfg"
 export DOTFILES_PATH="$HOME/.dotfiles"
 
 # Soft linking immutable paths
 [[ ! -L "$HOME/.docker" ]] && ln -s "$DOCKER_CONFIG" "$HOME/.docker"
+[[ ! -L "$HOME/.lemminx" ]] && ln -s "$XDG_CACHE_HOME/lemminx" "$HOME/.lemminx"
 
 # Add all directories in `$HOME/.local/bin` to $PATH
 export PATH="$PATH:$(find $XDG_LOCAL_HOME/bin -type d | paste -sd ':' -)"
