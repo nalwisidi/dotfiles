@@ -1,7 +1,7 @@
 # History in cache directory:
 HISTSIZE=10000000
 SAVEHIST=10000000
-HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh_history"
+HISTFILE="$XDG_DATA_HOME/zsh_history"
 setopt inc_append_history
 
 source $ZDOTDIR/themes.zsh
@@ -13,7 +13,7 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # iTerm2 & ZSH integration
 if [[ "$(uname)" == "Darwin" ]]; then
-  [[ ! -f $ZDOTDIR/.iterm2_shell_integration.zsh ]] || source $ZDOTDIR/.iterm2_shell_integration.zsh
+  [[ ! -f $ZDOTDIR/iterm2_shell_integration.zsh ]] || source $ZDOTDIR/iterm2_shell_integration.zsh
 fi
 
 # Integrate FZF
@@ -38,12 +38,13 @@ bindkey -M vicmd '^e' edit-command-line
 # Auto navigate with CLI File Manager (lf)
 lfcd () {
   tmp="$(mktemp -uq)"
-  trap 'rm -f $tmp >/dev/null 2>&1'
-  lf -last-dir-path="$tmp" "$@"
+  trap 'rm -f $tmp >/dev/null 2>&1' EXIT
+  command lf -last-dir-path="$tmp" "$@"
   if [ -f "$tmp" ]; then
     dir="$(cat "$tmp")"
     [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
   fi
+  clear
 }
 alias lf='lfcd'
 bindkey -s '^o' '^ulfcd\n'

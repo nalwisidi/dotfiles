@@ -1,4 +1,5 @@
 .git
-scripts
+bootstrap.sh
+Brewfile
 LICENSE
 README.md

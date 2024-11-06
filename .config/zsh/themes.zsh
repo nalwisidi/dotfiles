@@ -28,7 +28,7 @@ source $ZSH/oh-my-zsh.sh
 
 # PowerLevel10k
 source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-# [[ ! -f $HOME/.p10k.zsh ]] || source $HOME/.p10k.zsh
-[[ -f $ZDOTDIR/.p10k.zsh ]] || { [[ -f $HOME/.p10k.zsh ]] && mv $HOME/.p10k.zsh $ZDOTDIR/.p10k.zsh; }
-[[ -f $ZDOTDIR/.p10k.zsh ]] && source $ZDOTDIR/.p10k.zsh
+
+# To customize prompt, run `p10k configure` or edit $ZDOTDIR/p10k.zsh
+[[ -f $ZDOTDIR/p10k.zsh ]] || { [[ -f $HOME/.p10k.zsh ]] && mv $HOME/.p10k.zsh $ZDOTDIR/p10k.zsh; }
+[[ -f $ZDOTDIR/p10k.zsh ]] && source $ZDOTDIR/p10k.zsh
