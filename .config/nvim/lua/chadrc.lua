@@ -13,5 +13,4 @@ M.base46 = {
 	-- 	["@comment"] = { italic = true },
 	-- },
 }
-
 return M

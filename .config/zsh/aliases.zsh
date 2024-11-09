@@ -31,6 +31,9 @@ alias grep="grep --color=auto"
 alias diff="diff --color=auto"
 alias ccat="highlight --out-format=ansi"
 
+# tmux
+alias tmux="tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf"
+
 # Productivity aliases (Networking and DEV)
 alias gh='cat /etc/hosts | grep -i'
 alias hosts="sudo $EDITOR /etc/hosts"
