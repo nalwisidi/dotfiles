@@ -6,7 +6,7 @@ This repository contains my personal configuration files for development and spe
 ## Installation
 To set up your macOS environment, run the following command:
 ```bash
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/alwisidi/dotfiles/main/bootstrap.sh?$(date +%s))"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/alwisidi/dotfiles/main/bootstrap.sh)"
 ```
 This command will:
 - Install `brew` package manager (if not already installed).
