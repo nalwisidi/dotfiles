@@ -17,7 +17,7 @@ This repository contains my personal configuration files and automated setup scr
 - **Raycast**: Alternative for Spotlight with advanced capabilities.
 - **Rectangle**: Window management.
 - **Maccy**: Clipboard manager.
-- **Notion**: Best note-taking app ever 🤩.
+- **Notion**: Best note-taking app ever.
 - **Stats**: System resource monitoring in menubar.
 - **KeepingYouAwake**: Prevents system sleep.
 - **CleanMyMac**: System maintenance and optimization.
@@ -38,21 +38,41 @@ This repository contains my personal configuration files and automated setup scr
 ## Structure
 ```
 dotfiles/
-├── .zshrc
+├── .zprofile
 ├── .config/
-│   └── iterm2/
-│       └── preferences.json
-├── scripts/
-    ├── setup.sh  # Main script for setup automation
-    └── dependencies/
-        ├── mac.sh
-        └── linux.sh
+│   ├── git/
+│   │   └── .gitignore
+│   ├── iterm2/
+│   │   ├── zsh_scripts/*
+│   │   ├── iterm2_setup.sh
+│   │   └── github_dark.itermcolors
+│   ├── lf/
+│   │     └── lfrc
+│   ├── nvim/
+│   │   ├── lua/*
+│   │   ├── init.lua
+│   │   └── .stylua.toml
+│   ├── shell/
+│   │     └── profile
+│   ├── tmux/
+│   │     └── tmux.conf
+│   └── zsh/
+│       ├── .zshrc
+│       ├── themes.zsh
+│       ├── aliases.zsh
+│       ├── iterm2_shell_integration.zsh
+│       ├── tab.zsh
+│       ├── plugins.zsh
+│       └── p10k.zsh
+├── bootstrap.sh
+└── Brewfile
+
 ```
 
 ## Installation
 To set up your macOS environment, run the following command:
 ```bash
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/alwisidi/dotfiles/main/scripts/setup.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/alwisidi/dotfiles/main/scripts/bootstrap.sh)"
 ```
 This command will:
 - Install brew (Package Manager).

@@ -83,6 +83,7 @@ cmd bulkrename ${{
 # Bindings
 map <c-r> $lf -remote "send $id select \"$(fzf)\""
 map H cd ~
+map .d cd ~/.dotfiles
 map g top
 map D remove
 map E extract
