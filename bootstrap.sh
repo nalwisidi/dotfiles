@@ -52,6 +52,9 @@ initial_setup() {
   if [[ "$OS_TYPE" == "Darwin" ]]; then
     info 'Setup iTerm2 preferences'
     sh -c $(curl -fsSL "https://raw.githubusercontent.com/$GH_USERNAME/dotfiles/main/.config/iterm2/iterm2_setup.sh?$(date +%s)")
+    info 'github_dark theme imported to iTerm2, please, apply it manually'
+    curl -sL "https://raw.githubusercontent.com/$GH_USERNAME/dotfiles/main/.config/iterm2/github_dark.itermcolors?$(date +%s)" -o /tmp/github_dark.itermcolors && open /tmp/github_dark.itermcolors && rm /tmp/github_dark.itermcolors &> /dev/null
+    succ "iTerm2 configured successfully."
   fi
 }
 
