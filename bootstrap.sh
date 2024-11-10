@@ -40,7 +40,7 @@ initial_setup() {
   info "Configuring your favorite tools 💫🛠️"
   # 1- Git configuraitons
   if ! [ -f $HOME/.gitconfig ]; then
-    info 'Setup gitconfig'
+    info 'Setup Git config file'
     user ' - What is your Git author name?'
     read -e GIT_AUTHORNAME
     user ' - What is your Git author email?'
@@ -50,7 +50,8 @@ initial_setup() {
   fi
   # 2- iTerm2 configurations (if macOS)
   if [[ "$OS_TYPE" == "Darwin" ]]; then
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/$GH_USERNAME/dotfiles/main/.config/iterm2/iterm2_setup.sh?$(date +%s))"
+    info 'Setup iTerm2 preferences'
+    sh -c $(curl -fsSL "https://raw.githubusercontent.com/$GH_USERNAME/dotfiles/main/.config/iterm2/iterm2_setup.sh?$(date +%s)")
   fi
 }
 
