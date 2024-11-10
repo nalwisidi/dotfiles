@@ -53,7 +53,7 @@ install_essentials() {
 }
 
 stow_dotfiles() {
-  [ -d "$DOTFILES_PATH/.git" ] || git clone https://github.com/alwisidi/dotfiles.git $DOTFILES_PATH
+  [ -d "$DOTFILES_PATH/.git" ] || git clone https://github.com/$GH_USERNAME/dotfiles.git $DOTFILES_PATH
   while true; do
     OUTPUT=$(stow -R --no-folding -d $DOTFILES_PATH -t $HOME . 2>&1)
     STATUS=$?
