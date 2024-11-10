@@ -27,7 +27,7 @@ install_essentials() {
         succ "Homebrew installed successfully." ||
         fail "Homebrew installation failed."
     fi
-    curl -sL "https://raw.githubusercontent.com/$GH_USERNAME/dotfiles/main/Brewfile" | brew bundle --file=-
+    curl -sL "https://raw.githubusercontent.com/$GH_USERNAME/dotfiles/main/Brewfile?$(date +%s)" | brew bundle --file=-
   elif [[ "$OS_TYPE" == "Linux" ]]; then
     info "Nothing to do here, come next time :)"
     # TODO later ...
@@ -50,7 +50,7 @@ initial_setup() {
   fi
   # 2- iTerm2 configurations (if macOS)
   if [[ "$OS_TYPE" == "Darwin" ]]; then
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/$GH_USERNAME/dotfiles/main/.config/iterm2/iterm2_setup.sh)"
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/$GH_USERNAME/dotfiles/main/.config/iterm2/iterm2_setup.sh?$(date +%s))"
   fi
 }
 
