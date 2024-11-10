@@ -1,7 +1,7 @@
 #!/bin/sh
 
-# GitHub Account Username
-GH_USERNAME="aliwisdi"
+# GitHub Account Username (Change it to yours if you fork this repo)
+export GH_USERNAME="alwisidi"
 
 # Global Variables
 export CURRENT_DATE=$(date +%Y%m%d)
@@ -12,10 +12,18 @@ export OS_TYPE=$(uname)
 set -e
 
 # Status functions
-user () { printf "\r  [ \033[0;33m??\033[0m ] $1\n" }
-info () { printf "\r  [ \033[00;34m..\033[0m ] $1\n" }
-succ () { printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n" }
-fail () { printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n" && exit }
+user () {
+  printf "\r[ \033[0;33m??\033[0m ] $1\n"
+}
+info () {
+  printf "\r[ \033[00;34m..\033[0m ] $1\n"
+}
+succ () {
+  printf "\r\033[2K[ \033[00;32mOK\033[0m ] $1\n"
+}
+fail () {
+  printf "\r\033[2K[\033[0;31mFAIL\033[0m] $1\n" && exit
+}
 
 initial_setup() {
   # 1- Git configuraitons
@@ -40,13 +48,10 @@ install_essentials() {
         succ "Homebrew installed successfully." ||
         fail "Homebrew installation failed."
     fi
-
-    # TODO Remove Brewfile.lock.json after installation
     curl -sL "https://raw.githubusercontent.com/$GH_USERNAME/dotfiles/main/Brewfile" | brew bundle --file=-
-
-# elif [[ "$OS_TYPE" == "Linux" ]]; then
-#   info "Nothing to do here, come next time :)"
-#   # TODO later ...
+  elif [[ "$OS_TYPE" == "Linux" ]]; then
+    info "Nothing to do here, come next time :)"
+    # TODO later ...
   else
     fail "Unsupported operating system."
   fi
