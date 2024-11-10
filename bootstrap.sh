@@ -12,18 +12,10 @@ export OS_TYPE=$(uname)
 set -e
 
 # Status functions
-user () {
-  printf "\r[ \033[0;33m??\033[0m ] $1\n"
-}
-info () {
-  printf "\r[ \033[00;34m..\033[0m ] $1\n"
-}
-succ () {
-  printf "\r\033[2K[ \033[00;32mOK\033[0m ] $1\n"
-}
-fail () {
-  printf "\r\033[2K[\033[0;31mFAIL\033[0m] $1\n" && exit
-}
+user () { printf "\r[ \033[0;33m??\033[0m ] $1\n"; }
+info () { printf "\r[ \033[00;34m..\033[0m ] $1\n"; }
+succ () { printf "\r\033[2K[ \033[00;32mOK\033[0m ] $1\n"; }
+fail () { printf "\r\033[2K[\033[0;31mFAIL\033[0m] $1\n" && exit; }
 
 initial_setup() {
   # 1- Git configuraitons
