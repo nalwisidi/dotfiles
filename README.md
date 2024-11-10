@@ -72,7 +72,7 @@ dotfiles/
 ## Installation
 To set up your macOS environment, run the following command:
 ```bash
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/alwisidi/dotfiles/main/scripts/bootstrap.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/alwisidi/dotfiles/main/bootstrap.sh)"
 ```
 This command will:
 - Install brew (Package Manager).
