@@ -1,7 +1,7 @@
 # Dotfiles Project
 
 ## Overview
-This repository contains my personal configuration files for development and specially for DevOps, and automated setup script for macOS, with plans to expand to Linux and Windows.
+This repository contains my personal configuration files for development and specially for **DevOps**, and automated setup script for macOS, with plans to expand to Linux and Windows.
 
 ## Installation
 To set up your macOS environment, run the following command:
