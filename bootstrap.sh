@@ -17,19 +17,6 @@ info () { printf "\r[ \033[00;34m..\033[0m ] $1\n"; }
 succ () { printf "\r\033[2K[ \033[00;32mOK\033[0m ] $1\n"; }
 fail () { printf "\r\033[2K[\033[0;31mFAIL\033[0m] $1\n" && exit; }
 
-initial_setup() {
-  # 1- Git configuraitons
-  if ! [ -f $HOME/.gitconfig ]; then
-    info 'Setup gitconfig'
-    user ' - What is your Git author name?'
-    read -e GIT_AUTHORNAME
-    user ' - What is your Git author email?'
-    read -e GIT_EMAIL
-    echo -e "[user]\n\tname = $GIT_AUTHORNAME\n\temail = $GIT_EMAIL\n[init]\n\tdefaultBranch = main\n[core]\n\texcludesfile = /Users/me/.config/git/.gitignore" > $HOME/.gitconfig
-    succ "gitconfig initialized successfully."
-  fi
-}
-
 install_essentials() {
   if [[ "$OS_TYPE" == "Darwin" ]]; then
     info "Detected macOS."
@@ -46,6 +33,24 @@ install_essentials() {
     # TODO later ...
   else
     fail "Unsupported operating system."
+  fi
+}
+
+initial_setup() {
+  info "Configuring your favorite tools 💫🛠️"
+  # 1- Git configuraitons
+  if ! [ -f $HOME/.gitconfig ]; then
+    info 'Setup gitconfig'
+    user ' - What is your Git author name?'
+    read -e GIT_AUTHORNAME
+    user ' - What is your Git author email?'
+    read -e GIT_EMAIL
+    echo -e "[user]\n\tname = $GIT_AUTHORNAME\n\temail = $GIT_EMAIL\n[init]\n\tdefaultBranch = main\n[core]\n\texcludesfile = /Users/me/.config/git/.gitignore" > $HOME/.gitconfig
+    succ "gitconfig initialized successfully."
+  fi
+  # 2- iTerm2 configurations (if macOS)
+  if [[ "$OS_TYPE" == "Darwin" ]]; then
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/$GH_USERNAME/dotfiles/main/.config/iterm2/iterm2_setup.sh)"
   fi
 }
 
@@ -75,8 +80,8 @@ stow_dotfiles() {
 
 main() {
   info "Preparing your magic environment ✨"
-  initial_setup
   install_essentials
+  initial_setup
   info "Time to stow configuraitons 🍳"
   stow_dotfiles
   succ "Your device is stowed and ready 🧑‍🍳"

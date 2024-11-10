@@ -1,6 +1,5 @@
 cask_args appdir: '/Applications'
 tap 'homebrew/bundle'
-tap 'homebrew/cask-fonts'
 
 # Essential CLI tools
 brew 'zsh-completions'
