@@ -1,12 +1,12 @@
 #!/bin/sh
 
-#########################################################################
-# -------------------- iTerm2 Configuration Setup --------------------- #
-#                                                                       #
-# Customized iTerm2 settings for optimized workflow and display.        #
-#                                                                       #
-# Author: Nawaf Alwisidi                                                #
-#########################################################################
+###################################################################
+# ----------------- iTerm2 Configuration Setup ------------------ #
+#                                                                 #
+# Customized iTerm2 settings for optimized workflow and display.  #
+#                                                                 #
+# Author: Nawaf Alwisidi                                          #
+###################################################################
 
 # Enable alternate mouse scroll
 defaults write com.googlecode.iterm2 AlternateMouseScroll -bool true

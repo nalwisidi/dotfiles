@@ -1,5 +1,6 @@
 cask_args appdir: '/Applications'
 tap 'homebrew/bundle'
+tap 'homebrew/cask-fonts'
 
 # Essential CLI tools
 brew 'zsh-completions'
@@ -41,6 +42,7 @@ brew 'vault'
 brew 'helm'
 
 # GUI tools
+cask 'font-jetbrains-mono'
 cask 'visual-studio-code'
 cask 'keystore-explorer'
 cask 'keepingyouawake'
