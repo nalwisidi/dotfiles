@@ -38,6 +38,9 @@ alias tmux="tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf"
 alias gh='cat /etc/hosts | grep -i'
 alias hosts="sudo $EDITOR /etc/hosts"
 
+# Zoxide
+[ -x "$(command -v z)" ] && alias cd="z"
+
 # macOS aliases
 if [[ "$(uname)" == "Darwin" ]]; then
   alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
@@ -56,6 +59,7 @@ fi
 
 # -- Kubernetes -- #
 # Change namespace -> ns <desired_namespace>
+alias k="kubectl"
 ns () {
   kubectl config set-context $(kubectl config current-context) --namespace=$1
 }
@@ -64,3 +68,8 @@ alias nodes='kubectl get nodes | grep -Eo "([0-9]{1,3}\.){3}[0-9]{1,3}"'
 
 # Stow
 alias restow="stow -R --no-folding -d $DOTFILES_PATH -t $HOME ."
+
+# Git
+gpush () {
+  git add . && git commit -m $1 && git push
+}

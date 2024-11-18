@@ -17,7 +17,7 @@ export XDG_LOCAL_HOME="$HOME/.local"
 export XDG_CACHE_HOME="$HOME/.cache"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
-export KUBECONFIG="$XDG_CONFIG_HOME/kube"
+# export KUBECONFIG="$XDG_CONFIG_HOME/kube"
 export MAVEN_USER_HOME="$XDG_CONFIG_HOME/m2"
 export NPM_CONFIG_PREFIX="$XDG_CONFIG_HOME/npm/global"
 export NPM_CONFIG_CACHE="$XDG_CONFIG_HOME/npm/cache"
@@ -46,3 +46,8 @@ if [[ "$(uname)" == "Darwin" ]]; then
     sudo sed -i '' '2s|^|'"$line"'\n|' /etc/pam.d/sudo
   }
 fi
+
+
+# GCP
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+
