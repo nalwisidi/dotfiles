@@ -1,13 +1,13 @@
 local wezterm = require 'wezterm'
 return {
-  color = {
-    "foreground" == "#feffff",
-    "background" == "#000000",
-  "cursor_border" == "#feffff",
-    "cursor_bg" == "#feffff",
-    "cursor_fg" == "#000000",
+  colors = {
+    "foreground" == "#cfd7e3",
+    "background" == "#101115",
+    "cursor_border" == "#cad0d8",
+    "cursor_bg" == "#cad0d8",
+    "cursor_fg" == "#101115",
     "selection_bg" == "#78a2f1",
-    "selection_fg" == "#000000",
+    "selection_fg" == "#101115",
     "ansi" == {
       "#000000",
       "#e7876c",
