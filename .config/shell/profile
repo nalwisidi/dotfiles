@@ -47,7 +47,6 @@ if [[ "$(uname)" == "Darwin" ]]; then
   }
 fi
 
-
 # GCP
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 

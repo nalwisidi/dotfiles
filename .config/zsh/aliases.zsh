@@ -73,3 +73,5 @@ alias restow="stow -R --no-folding -d $DOTFILES_PATH -t $HOME ."
 gpush () {
   git add . && git commit -m $1 && git push
 }
+alias gurl="git config --get remote.origin.url"
+alias gsync="git fetch origin & git pull origin"

@@ -6,6 +6,7 @@ setopt inc_append_history
 
 source $ZDOTDIR/themes.zsh
 source $ZDOTDIR/aliases.zsh
+[[ ! -f $ZDOTDIR/work_aliases.zsh ]] || source $ZDOTDIR/work_aliases.zsh
 
 # BUN Configs
 export BUN_INSTALL="$XDG_LOCAL_HOME/.bun"
@@ -60,7 +61,6 @@ source $ZDOTDIR/tab.zsh
 
 # Load plugins
 source $ZDOTDIR/plugins.zsh
-
 
 # Export Variables for LevelDB
 export CPLUS_INCLUDE_PATH=$(brew --prefix leveldb)/include
