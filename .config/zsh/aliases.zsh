@@ -74,4 +74,12 @@ gpush () {
   git add . && git commit -m $1 && git push
 }
 alias gurl="git config --get remote.origin.url"
-alias gsync="git fetch origin & git pull origin"
+gsync () {
+  git fetch origin && git pull origin
+}
+# gmigrate () {
+#   REPO_PATH="$(git config --get remote.origin.url | cut -d':' -f2)"
+#   DOMAIN="alriyadh.gov.sa"
+#   which rm
+#   rm -rf .git && git init && git add . && git commit --allow-empty-message -m "Initial commit" && git remote add origin git@gitlab.$DOMAIN:$REPO_PATH && git push
+# }

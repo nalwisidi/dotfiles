@@ -32,6 +32,7 @@ return {
   enable_tab_bar = false,
   font_size = 15.0,
   font = wezterm.font('JetBrains Mono'),
+  -- font = wezterm.font('SpaceMono Nerd Font'),
   macos_window_background_blur = 30,
   window_background_opacity = 0.75,
   window_decorations = 'RESIZE',

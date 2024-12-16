@@ -17,3 +17,6 @@ autoload -Uz compinit && compinit && source <(docker completion zsh)
 
 # Kubernetes
 autoload -Uz compinit && compinit && source <(kubectl completion zsh)
+
+# Gitlab -> Doesn't work for some reason! 🤨
+# autoload -Uz compinit && compinit && source <(glab completion zsh)

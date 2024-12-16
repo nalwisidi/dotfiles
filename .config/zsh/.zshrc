@@ -23,6 +23,9 @@ eval "$(fzf --zsh)"
 # Integrate Zoxide
 eval "$(zoxide init zsh)"
 
+# Persist Clear shortcut
+# bindkey '^L' clear
+
 # vi mode
 bindkey -v
 export KEYTIMEOUT=1
