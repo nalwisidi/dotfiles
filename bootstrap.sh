@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # GitHub Account Username (Change it to yours if you fork this repo)
-export GH_USERNAME="nalwisdi"
+export GH_USERNAME="nalwisidi"
 
 # Global Variables
 export CURRENT_DATE=$(date +%Y%m%d)
