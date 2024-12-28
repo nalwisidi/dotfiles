@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # GitHub Account Username (Change it to yours if you fork this repo)
-export GH_USERNAME="alwisidi"
+export GH_USERNAME="nalwisdi"
 
 # Global Variables
 export CURRENT_DATE=$(date +%Y%m%d)
@@ -41,11 +41,11 @@ initial_setup() {
   # Clone the ZPLUG repo if not present
   ZPLUG_PATH="$CFG/zsh/zplug"
   [ -d "$ZPLUG_PATH/.git" ] || git clone https://github.com/zplug/zplug.git $ZPLUG_PATH
-  
+
   # Clone the OH-MY-ZSH repo if not present
   OMZ_PATH="$CFG/zsh/.oh-my-zsh"
   [ -d "$OMZ_PATH/.git" ] || git clone https://github.com/ohmyzsh/ohmyzsh.git $OMZ_PATH
-  
+
   # Clone the POWERLEVEL10K repo if not present
   P10K_PATH="$OMZ_PATH/custom/themes/powerlevel10k"
   [ -d "$P10K_PATH/.git" ] || git clone https://github.com/romkatv/powerlevel10k.git $P10K_PATH
@@ -57,7 +57,7 @@ initial_setup() {
   # Clone the TPM repo if not present
   TPM_PATH="$CFG/tmux/plugins/tpm"
   [ -d "$TPM_PATH/.git" ] || git clone https://github.com/tmux-plugins/tpm.git $TPM_PATH
-  
+
 # info "Configuring your favorite tools 💫🛠️"
 # # 1- Git configuraitons
 # if ! [ -f $HOME/.gitconfig ]; then
