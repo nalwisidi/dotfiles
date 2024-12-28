@@ -26,6 +26,9 @@ eval "$(zoxide init zsh)"
 # Persist Clear shortcut
 # bindkey '^L' clear
 
+# Persist Clear shortcut
+chmod 444 $XDG_CONFIG_HOME/btop/btop.conf
+
 # vi mode
 bindkey -v
 export KEYTIMEOUT=1
@@ -65,6 +68,6 @@ source $ZDOTDIR/tab.zsh
 # Load plugins
 source $ZDOTDIR/plugins.zsh
 
-# Export Variables for LevelDB
-export CPLUS_INCLUDE_PATH=$(brew --prefix leveldb)/include
-export LDFLAGS="-L$(brew --prefix leveldb)/lib"
+# # Export Variables for LevelDB
+# export CPLUS_INCLUDE_PATH=$(brew --prefix leveldb)/include
+# export LDFLAGS="-L$(brew --prefix leveldb)/lib"

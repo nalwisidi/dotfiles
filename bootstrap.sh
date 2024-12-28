@@ -37,54 +37,84 @@ install_essentials() {
 }
 
 initial_setup() {
-  info "Configuring your favorite tools 💫🛠️"
-  # 1- Git configuraitons
-  if ! [ -f $HOME/.gitconfig ]; then
-    info 'Setup Git config file'
-    user ' - What is your Git author name?'
-    read -e GIT_AUTHORNAME
-    user ' - What is your Git author email?'
-    read -e GIT_EMAIL
-    echo -e "[user]\n\tname = $GIT_AUTHORNAME\n\temail = $GIT_EMAIL\n[init]\n\tdefaultBranch = main\n[core]\n\texcludesfile = /Users/me/.config/git/.gitignore" > $HOME/.gitconfig
-    succ "gitconfig initialized successfully."
-  fi
-  # 2- iTerm2 configurations (if macOS)
-  if [[ "$OS_TYPE" == "Darwin" ]]; then
-    info 'Setup iTerm2 preferences'
-    sh -c $(curl -fsSL "https://raw.githubusercontent.com/$GH_USERNAME/dotfiles/main/.config/iterm2/iterm2_setup.sh?$(date +%s)")
-    info 'github_dark theme imported to iTerm2, please, apply it manually'
-    curl -sL "https://raw.githubusercontent.com/$GH_USERNAME/dotfiles/main/.config/iterm2/github_dark.itermcolors?$(date +%s)" -o /tmp/github_dark.itermcolors && open /tmp/github_dark.itermcolors && rm /tmp/github_dark.itermcolors &> /dev/null
-    succ "iTerm2 configured successfully."
-  fi
+  CFG="$HOME/.config"
+  # Clone the ZPLUG repo if not present
+  ZPLUG_PATH="$CFG/zsh/zplug"
+  [ -d "$ZPLUG_PATH/.git" ] || git clone https://github.com/zplug/zplug.git $ZPLUG_PATH
+  
+  # Clone the OH-MY-ZSH repo if not present
+  OMZ_PATH="$CFG/zsh/.oh-my-zsh"
+  [ -d "$OMZ_PATH/.git" ] || git clone https://github.com/ohmyzsh/ohmyzsh.git $OMZ_PATH
+  
+  # Clone the POWERLEVEL10K repo if not present
+  P10K_PATH="$OMZ_PATH/custom/themes/powerlevel10k"
+  [ -d "$P10K_PATH/.git" ] || git clone https://github.com/romkatv/powerlevel10k.git $P10K_PATH
+
+  # Clone the NvChad repo if not present
+  NVIM_PATH="$CFG/nvim"
+  [ -d "$NVIM_PATH/.git" ] || git clone https://github.com/NvChad/starter $NVIM_PATH
+
+  # Clone the TPM repo if not present
+  TPM_PATH="$CFG/tmux/plugins/tpm"
+  [ -d "$TPM_PATH/.git" ] || git clone https://github.com/tmux-plugins/tpm.git $TPM_PATH
+  
+# info "Configuring your favorite tools 💫🛠️"
+# # 1- Git configuraitons
+# if ! [ -f $HOME/.gitconfig ]; then
+#   info 'Setup Git config file'
+#   user ' - What is your Git author name?'
+#   read -e GIT_AUTHORNAME
+#   user ' - What is your Git author email?'
+#   read -e GIT_EMAIL
+#   echo -e "[user]\n\tname = $GIT_AUTHORNAME\n\temail = $GIT_EMAIL\n[init]\n\tdefaultBranch = main\n[core]\n\texcludesfile = /Users/me/.config/git/.gitignore" > $HOME/.gitconfig
+#   succ "gitconfig initialized successfully."
+# fi
+# # 2- iTerm2 configurations (if macOS)
+# if [[ "$OS_TYPE" == "Darwin" ]]; then
+#   info 'Setup iTerm2 preferences'
+#   sh -c $(curl -fsSL "https://raw.githubusercontent.com/$GH_USERNAME/dotfiles/main/.config/iterm2/iterm2_setup.sh?$(date +%s)")
+#   info 'github_dark theme imported to iTerm2, please, apply it manually'
+#   curl -sL "https://raw.githubusercontent.com/$GH_USERNAME/dotfiles/main/.config/iterm2/github_dark.itermcolors?$(date +%s)" -o /tmp/github_dark.itermcolors && open /tmp/github_dark.itermcolors && rm /tmp/github_dark.itermcolors &> /dev/null
+#   succ "iTerm2 configured successfully."
+# fi
 }
 
 stow_dotfiles() {
+  # Clone the dotfiles repo if not present
   [ -d "$DOTFILES_PATH/.git" ] || git clone https://github.com/$GH_USERNAME/dotfiles.git $DOTFILES_PATH
-  while true; do
-    OUTPUT=$(stow -R --no-folding -d $DOTFILES_PATH -t $HOME . 2>&1)
-    STATUS=$?
-    if [ $STATUS -eq 0 ]; then
-      succ "Stow completed successfully." && break
+
+  # Check for conflicts before running stow
+  CONFLICTS=$(stow -n --no-folding -d "$DOTFILES_PATH" -t "$HOME" . 2>&1 | sed -n -e 's/.*over existing target \([^ ]*\) .*/\1/p')
+
+  # Handle conflicts
+  for FILENAME in $CONFLICTS; do
+    FULL_PATH="$HOME/$FILENAME"
+    if [ -L "$FULL_PATH" ]; then
+      unlink "$FULL_PATH"
+      echo "ℹ Unlinked symbolic link: $FULL_PATH"
+    elif [ -f "$FULL_PATH" ]; then
+      mv "$FULL_PATH" "$FULL_PATH.backup.$(date +%Y%m%d%H%M%S)"
+      echo "✔ Backed up file: $FULL_PATH to $FULL_PATH.backup.$(date +%Y%m%d%H%M%S)"
+    elif [ -d "$FULL_PATH" ]; then
+      mv "$FULL_PATH" "$FULL_PATH.backup.$(date +%Y%m%d%H%M%S)"
+      echo "✔ Backed up directory: $FULL_PATH to $FULL_PATH.backup.$(date +%Y%m%d%H%M%S)"
     fi
-    # WARNING This regex might break in the future whenever stow's output changes
-    echo "$OUTPUT" | sed -n -e 's/.*over existing target \([^ ]*\) .*/\1/p' -e 's/.*existing target is not owned by stow: \(.*\)/\1/p' | while read -r FILENAME; do
-      FULL_PATH="$HOME/$FILENAME"
-      if [ -L "$FULL_PATH" ]; then
-        unlink "$FULL_PATH"
-        info "Unlinking symbolic link: $FILENAME"
-      elif [ -e "$FULL_PATH" ]; then
-        mv "$FULL_PATH" "$FULL_PATH.backup.$CURRENT_DATE"
-        succ "Moved $FILENAME to $FILENAME.backup.$CURRENT_DATE"
-      else
-        info "$FILENAME does not exist. Skipping.."
-      fi
-    done
   done
+
+  # Run stow after resolving conflicts
+  stow -R --no-folding -d "$DOTFILES_PATH" -t "$HOME" .
+  if [ $? -eq 0 ]; then
+    echo "✔ Stow completed successfully."
+  else
+    echo "❌ Stow failed. Check logs for details."
+  fi
 }
+
+
 
 main() {
   info "Preparing your magic environment ✨"
-  install_essentials
+# install_essentials
   initial_setup
   info "Time to stow configuraitons 🍳"
   stow_dotfiles

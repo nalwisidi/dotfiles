@@ -9,7 +9,6 @@ fi
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="$ZDOTDIR/.oh-my-zsh"
 # export LC_CTYPE=en_US.UTF-8
 
 # Set name of the theme to load --- if set to "random", it will
@@ -27,7 +26,7 @@ ZSH_THEME="robbyrussell"
 source $ZSH/oh-my-zsh.sh
 
 # PowerLevel10k
-source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
+source $ZSH/custom/themes/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit $ZDOTDIR/p10k.zsh
 [[ -f $ZDOTDIR/p10k.zsh ]] || { [[ -f $HOME/.p10k.zsh ]] && mv $HOME/.p10k.zsh $ZDOTDIR/p10k.zsh; }
