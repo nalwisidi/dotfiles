@@ -36,7 +36,8 @@ alias tmux="tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf"
 
 # Productivity aliases (Networking and DEV)
 alias gh='cat /etc/hosts | grep -i'
-alias hosts="sudo $EDITOR /etc/hosts"
+# alias hosts="sudo $EDITOR /etc/hosts"
+alias hosts="sudo $EDITOR /mnt/c/Windows/System32/drivers/etc/hosts"
 
 # Zoxide
 [ -x "$(command -v z)" ] && alias cd="z"

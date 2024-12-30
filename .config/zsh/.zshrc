@@ -17,6 +17,9 @@ if [[ "$(uname)" == "Darwin" ]]; then
   [[ ! -f $ZDOTDIR/iterm2_shell_integration.zsh ]] || source $ZDOTDIR/iterm2_shell_integration.zsh
 fi
 
+# Run SSH Agent
+eval "$(ssh-agent -s)"
+
 # Integrate FZF
 eval "$(fzf --zsh)"
 
