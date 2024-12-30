@@ -40,23 +40,23 @@ initial_setup() {
   CFG="$HOME/.config"
   # Clone the ZPLUG repo if not present
   ZPLUG_PATH="$CFG/zsh/zplug"
-  [ -d "$ZPLUG_PATH/.git" ] || git clone https://github.com/zplug/zplug.git $ZPLUG_PATH
+  [ -d "$ZPLUG_PATH/.git" ] || git clone --depth=1 https://github.com/zplug/zplug.git $ZPLUG_PATH
 
   # Clone the OH-MY-ZSH repo if not present
   OMZ_PATH="$CFG/zsh/.oh-my-zsh"
-  [ -d "$OMZ_PATH/.git" ] || git clone https://github.com/ohmyzsh/ohmyzsh.git $OMZ_PATH
+  [ -d "$OMZ_PATH/.git" ] || git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git $OMZ_PATH
 
   # Clone the POWERLEVEL10K repo if not present
   P10K_PATH="$OMZ_PATH/custom/themes/powerlevel10k"
-  [ -d "$P10K_PATH/.git" ] || git clone https://github.com/romkatv/powerlevel10k.git $P10K_PATH
+  [ -d "$P10K_PATH/.git" ] || git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $P10K_PATH
 
   # Clone the NvChad repo if not present
   NVIM_PATH="$CFG/nvim"
-  [ -d "$NVIM_PATH/.git" ] || git clone https://github.com/NvChad/starter $NVIM_PATH
+  [ -d "$NVIM_PATH/.git" ] || git clone --depth=1 https://github.com/NvChad/starter $NVIM_PATH
 
   # Clone the TPM repo if not present
   TPM_PATH="$CFG/tmux/plugins/tpm"
-  [ -d "$TPM_PATH/.git" ] || git clone https://github.com/tmux-plugins/tpm.git $TPM_PATH
+  [ -d "$TPM_PATH/.git" ] || git clone --depth=1 https://github.com/tmux-plugins/tpm.git $TPM_PATH
 
 # info "Configuring your favorite tools 💫🛠️"
 # # 1- Git configuraitons
@@ -81,7 +81,7 @@ initial_setup() {
 
 stow_dotfiles() {
   # Clone the dotfiles repo if not present
-  [ -d "$DOTFILES_PATH/.git" ] || git clone https://github.com/$GH_USERNAME/dotfiles.git $DOTFILES_PATH
+  [ -d "$DOTFILES_PATH/.git" ] || git clone --depth=1 https://github.com/$GH_USERNAME/dotfiles.git $DOTFILES_PATH
 
   # Check for conflicts before running stow
   CONFLICTS=$(stow -n --no-folding -d "$DOTFILES_PATH" -t "$HOME" . 2>&1 | sed -n -e 's/.*over existing target \([^ ]*\) .*/\1/p')
