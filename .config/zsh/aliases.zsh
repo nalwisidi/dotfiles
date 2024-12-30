@@ -78,9 +78,3 @@ alias gurl="git config --get remote.origin.url"
 gsync () {
   git fetch origin && git pull origin
 }
-# gmigrate () {
-#   REPO_PATH="$(git config --get remote.origin.url | cut -d':' -f2)"
-#   DOMAIN="alriyadh.gov.sa"
-#   which rm
-#   rm -rf .git && git init && git add . && git commit --allow-empty-message -m "Initial commit" && git remote add origin git@gitlab.$DOMAIN:$REPO_PATH && git push
-# }
