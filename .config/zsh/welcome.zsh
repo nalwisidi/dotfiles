@@ -4,7 +4,7 @@ if [[ ! -f "$MARKER_FILE" ]]; then
 ============================================================
                   Welcome to Fedora DevOps
 ============================================================
-Fedora DevOps is a modern developer-focused WSL environment
+Fedora DevOps  is a modern developer-focused WSL environment
 shipped with a variety of prebuilt DevOps tools. It includes
 an additional tool, DevKit, which serves as a comprehensive
 toolkit for developers. DevKit streamlines your workflow
