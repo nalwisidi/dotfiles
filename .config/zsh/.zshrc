@@ -17,8 +17,8 @@ if [[ "$(uname)" == "Darwin" ]]; then
   [[ ! -f $ZDOTDIR/iterm2_shell_integration.zsh ]] || source $ZDOTDIR/iterm2_shell_integration.zsh
 fi
 
-# Run SSH Agent
-eval "$(ssh-agent -s)"
+# # Run SSH Agent
+# eval "$(ssh-agent -s)"
 
 # Integrate FZF
 eval "$(fzf --zsh)"
@@ -70,6 +70,9 @@ source $ZDOTDIR/tab.zsh
 
 # Load plugins
 source $ZDOTDIR/plugins.zsh
+
+# Load Welcome Poster
+source $ZDOTDIR/welcome.zsh
 
 # # Export Variables for LevelDB
 # export CPLUS_INCLUDE_PATH=$(brew --prefix leveldb)/include
