@@ -10,8 +10,9 @@ zplug "zsh-users/zsh-completions", from:github
 zplug load
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
+    # printf "Install? [y/N]: "
+    # if read -q; then
+    #     echo; zplug install
+    # fi
+    zplug install
 fi

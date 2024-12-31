@@ -71,9 +71,6 @@ source $ZDOTDIR/tab.zsh
 # Load plugins
 source $ZDOTDIR/plugins.zsh
 
-# Load Welcome Poster
-source $ZDOTDIR/welcome.zsh
-
 # # Export Variables for LevelDB
 # export CPLUS_INCLUDE_PATH=$(brew --prefix leveldb)/include
 # export LDFLAGS="-L$(brew --prefix leveldb)/lib"
